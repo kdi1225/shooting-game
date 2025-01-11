@@ -37,3 +37,31 @@ body {
     padding: 10px 20px;
     border-radius: 10px;
 }
+
+#clear-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    text-align: center;
+    display: none; /* 처음에는 숨김 */
+}
+
+#clear-screen button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #ffcc00;
+    color: black;
+    border-radius: 10px;
+}
