@@ -12,8 +12,12 @@ function spawnTarget(isBossTarget = false) {
     target.classList.add("target");
     if (isBossTarget) target.classList.add("boss");
     
-    let x = Math.random() * (window.innerWidth - 100);
-    let y = Math.random() * (window.innerHeight - 100);
+    let maxX = window.innerWidth - target.offsetWidth;
+    let maxY = window.innerHeight - target.offsetHeight;
+
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+    
     target.style.left = `${x}px`;
     target.style.top = `${y}px`;
     
@@ -27,8 +31,9 @@ function moveTarget(element) {
         let newX = parseInt(element.style.left) + (Math.random() * 200 - 100);
         let newY = parseInt(element.style.top) + (Math.random() * 200 - 100);
         
-        newX = Math.max(0, Math.min(window.innerWidth - 50, newX));
-        newY = Math.max(0, Math.min(window.innerHeight - 50, newY));
+        // 화면 경계를 벗어나지 않도록 제한
+        newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
+        newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
         
         element.style.left = `${newX}px`;
         element.style.top = `${newY}px`;
