@@ -13,7 +13,7 @@ body {
 
 .target {
     position: absolute;
-    width: 10vw;    /* 화면 너비의 10% */
+    width: 10vw;    /* 화면 너비의 10%       */
     height: 12.5vh; /* 화면 높이의 12.5% */
     background: url('assets/images/target.png') no-repeat center center/contain;
 }
