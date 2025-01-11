@@ -27,7 +27,7 @@ function spawnTarget(isBossTarget = false) {
 }
 
 function moveTarget(element) {
-    let speedMultiplier = element.classList.contains("boss") ? 2 : 1;
+    let speedMultiplier = element.classList.contains("boss") ? 4 : 1;  // 보스는 4배 빠르게
 
     function animateMovement() {
         let newX = parseInt(element.style.left) + (Math.random() * 400 - 200) * speedMultiplier;
