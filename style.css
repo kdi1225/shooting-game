@@ -1,7 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
-    background: url('assets/images/background.jpg') no-repeat center center/cover;
+    background: url('./assets/images/background.jpg') no-repeat center center/cover;
     cursor: crosshair;
 }
 
@@ -15,13 +15,13 @@ body {
     position: absolute;
     width: 300px;
     height: 380px;
-    background: url('assets/images/target.png') no-repeat center center/contain;
+    background: url('./assets/images/target.png') no-repeat center center/contain;
 }
 
 .boss {
     width: 300px;
     height: 490px;
-    background: url('assets/images/boss.png') no-repeat center center/contain;
+    background: url('./assets/images/boss.png') no-repeat center center/contain;
 }
 
 #scoreboard {
