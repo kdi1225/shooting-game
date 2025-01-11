@@ -17,6 +17,7 @@ bgMusic.volume = 0.2;
 document.addEventListener("click", () => {
     if (bgMusic.paused) {
         bgMusic.play().catch(error => console.log("재생 오류:", error));
+        musicToggle.textContent = "🎵 음악 끄기";
     }
 }, { once: true }); // 한 번만 실행
 
