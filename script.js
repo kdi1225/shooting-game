@@ -6,21 +6,41 @@ const restartButton = document.getElementById("restart-button");
 const bgMusic = document.getElementById("bg-music");
 const musicToggle = document.getElementById("music-toggle");
 
-// 배경 음악 자동 재생 (사용자가 상호작용하면 재생됨)
-bgMusic.volume = 0.2; // 볼륨 설정 (0.0 ~ 1.0)
-
 let score = 0;
-let target;
+let target = null;
 let isBoss = false;
 
+// 배경 음악 설정 (초기 볼륨 설정)
+bgMusic.volume = 0.2;
+
+// 사용자가 클릭하면 배경 음악 재생 (자동 재생 차단 해결)
+document.addEventListener("click", () => {
+    if (bgMusic.paused) {
+        bgMusic.play().catch(error => console.log("재생 오류:", error));
+    }
+}, { once: true }); // 한 번만 실행
+
+// 음악 ON/OFF 버튼 기능 추가
+musicToggle.addEventListener("click", () => {
+    if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.textContent = "🎵 음악 끄기";
+    } else {
+        bgMusic.pause();
+        musicToggle.textContent = "🎵 음악 켜기";
+    }
+});
+
+// 게임 재시작 버튼 기능
 restartButton.addEventListener("click", () => {
     score = 0;
     isBoss = false;
     scoreDisplay.textContent = score;
-    clearScreen.style.display = "none"; // 클리어 화면 숨기기
+    clearScreen.style.display = "none"; // 클리어 화면 숨김
     spawnTarget();
 });
 
+// 목표물 생성 함수
 function spawnTarget(isBossTarget = false) {
     if (target) target.remove();
     target = document.createElement("div");
@@ -37,10 +57,10 @@ function spawnTarget(isBossTarget = false) {
     target.style.top = `${y}px`;
 
     gameContainer.appendChild(target);
-
     moveTarget(target);
 }
 
+// 목표물 이동 함수 (보스는 4배 속도)
 function moveTarget(element) {
     let speedMultiplier = element.classList.contains("boss") ? 4 : 2;
 
@@ -51,25 +71,27 @@ function moveTarget(element) {
         newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
         newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
 
-        element.style.transition = 'left 0.3s ease-in-out, top 0.3s ease-in-out';
+        element.style.transition = "left 0.3s ease-in-out, top 0.3s ease-in-out";
         element.style.left = `${newX}px`;
         element.style.top = `${newY}px`;
 
         setTimeout(animateMovement, 1000 / speedMultiplier);
     }
+
     animateMovement();
 }
 
+// 게임 클리어 처리 함수
 function gameClear() {
     clearScreen.style.display = "flex"; // 클리어 화면 표시
 }
 
+// 게임 클릭 이벤트 (목표물 제거 및 점수 증가)
 gameContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("target")) {
         shootSound.currentTime = 0;
         shootSound.play();
 
-        clearInterval(event.target.dataset.moveInterval);
         event.target.remove();
 
         score++;
@@ -81,20 +103,10 @@ gameContainer.addEventListener("click", (event) => {
         } else if (!isBoss) {
             spawnTarget();
         } else {
-            gameClear(); // 게임 클리어 화면 표시
+            gameClear();
         }
     }
 });
 
-// 사용자가 버튼을 클릭하면 음악 시작
-musicToggle.addEventListener("click", () => {
-    if (bgMusic.paused) {
-        bgMusic.play().catch(error => console.log("재생 오류:", error));
-        musicToggle.textContent = "🎵 음악 끄기";
-    } else {
-        bgMusic.pause();
-        musicToggle.textContent = "🎵 음악 켜기";
-    }
-});
-
+// 초기 목표물 생성
 spawnTarget();
