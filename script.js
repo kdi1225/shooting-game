@@ -27,9 +27,11 @@ function spawnTarget(isBossTarget = false) {
 }
 
 function moveTarget(element) {
+    let speedMultiplier = element.classList.contains("boss") ? 2 : 1;
+
     function animateMovement() {
-        let newX = parseInt(element.style.left) + (Math.random() * 400 - 200);
-        let newY = parseInt(element.style.top) + (Math.random() * 400 - 200);
+        let newX = parseInt(element.style.left) + (Math.random() * 400 - 200) * speedMultiplier;
+        let newY = parseInt(element.style.top) + (Math.random() * 400 - 200) * speedMultiplier;
 
         newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
         newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
@@ -38,10 +40,11 @@ function moveTarget(element) {
         element.style.left = `${newX}px`;
         element.style.top = `${newY}px`;
 
-        setTimeout(animateMovement, 1000);
+        setTimeout(animateMovement, 1000 / speedMultiplier);
     }
     animateMovement();
 }
+
 
 gameContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("target")) {
