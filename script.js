@@ -27,19 +27,20 @@ function spawnTarget(isBossTarget = false) {
 }
 
 function moveTarget(element) {
-    let moveInterval = setInterval(() => {
+    function animateMovement() {
         let newX = parseInt(element.style.left) + (Math.random() * 200 - 100);
         let newY = parseInt(element.style.top) + (Math.random() * 200 - 100);
-        
-        // 화면 경계를 벗어나지 않도록 제한
+
         newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
         newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
-        
+
+        element.style.transition = 'left 0.5s ease-in-out, top 0.5s ease-in-out';
         element.style.left = `${newX}px`;
         element.style.top = `${newY}px`;
-    }, 1000);
-    
-    element.dataset.moveInterval = moveInterval;
+
+        setTimeout(animateMovement, 1000);
+    }
+    animateMovement();
 }
 
 gameContainer.addEventListener("click", (event) => {
