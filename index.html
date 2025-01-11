@@ -1,1 +1,116 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사격 게임</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: url('background.jpg') no-repeat center center/cover;
+            cursor: crosshair;
+        }
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .target {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('target.png') no-repeat center center/contain;
+        }
+        .boss {
+            width: 100px;
+            height: 100px;
+            background: url('boss.png') no-repeat center center/contain;
+        }
+        #scoreboard {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="scoreboard">점수: <span id="score">0</span></div>
+    </div>
+    <audio id="shoot-sound" src="shoot.mp3"></audio>
+    
+    <script>
+        const gameContainer = document.getElementById("game-container");
+        const scoreDisplay = document.getElementById("score");
+        const shootSound = document.getElementById("shoot-sound");
+        
+        let score = 0;
+        let target;
+        let isBoss = false;
+
+        function spawnTarget(isBossTarget = false) {
+            if (target) target.remove();
+            target = document.createElement("div");
+            target.classList.add("target");
+            if (isBossTarget) target.classList.add("boss");
+            
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            target.style.left = `${x}px`;
+            target.style.top = `${y}px`;
+            
+            gameContainer.appendChild(target);
+            
+            moveTarget(target);
+        }
+        
+        function moveTarget(element) {
+            let moveInterval = setInterval(() => {
+                let newX = parseInt(element.style.left) + (Math.random() * 200 - 100);
+                let newY = parseInt(element.style.top) + (Math.random() * 200 - 100);
+                
+                newX = Math.max(0, Math.min(window.innerWidth - 50, newX));
+                newY = Math.max(0, Math.min(window.innerHeight - 50, newY));
+                
+                element.style.left = `${newX}px`;
+                element.style.top = `${newY}px`;
+            }, 1000);
+            
+            element.dataset.moveInterval = moveInterval;
+        }
+        
+        gameContainer.addEventListener("click", (event) => {
+            if (event.target.classList.contains("target")) {
+                shootSound.currentTime = 0;
+                shootSound.play();
+                
+                clearInterval(event.target.dataset.moveInterval);
+                event.target.remove();
+                
+                score++;
+                scoreDisplay.textContent = score;
+                
+                if (score >= 20 && !isBoss) {
+                    isBoss = true;
+                    spawnTarget(true);
+                } else if (!isBoss) {
+                    spawnTarget();
+                } else {
+                    alert("게임 클리어!");
+                }
+            }
+        });
+        
+        spawnTarget();
+    </script>
+</body>
+</html>
