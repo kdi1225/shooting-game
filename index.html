@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HTML, CSS, JavaScript로 제작된 웹 기반 사격 게임">
+    <meta name="keywords" content="사격 게임, shooting game, HTML5, JavaScript">
+    <meta name="author" content="Your Name">
     <title>사격 게임</title>
+    
+    <!-- CSS 파일 로드 -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon 추가 (선택) -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div id="game-container">
         <div id="scoreboard">점수: <span id="score">0</span></div>
     </div>
-    <audio id="shoot-sound" src="assets/sounds/shoot.mp3"></audio>
 
+    <!-- 게임 사운드 -->
+    <audio id="shoot-sound" src="assets/sounds/shoot.mp3"></audio>
     <audio id="bg-music" src="assets/sounds/background.mp3" loop></audio>
+
+    <!-- 음악 ON/OFF 버튼 -->
     <button id="music-toggle">🎵 음악 켜기</button>
 
+    <!-- 게임 클리어 화면 -->
     <div id="clear-screen">
         <h1>🎉 게임 클리어! 🎉</h1>
         <button id="restart-button">다시 시작</button>
     </div>
     
-    <script src="script.js"></script>
+    <!-- JavaScript 파일 (defer 속성 추가) -->
+    <script src="script.js" defer></script>
 </body>
 </html>
