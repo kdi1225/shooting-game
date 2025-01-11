@@ -8,7 +8,6 @@ const musicToggle = document.getElementById("music-toggle");
 
 // 배경 음악 자동 재생 (사용자가 상호작용하면 재생됨)
 bgMusic.volume = 0.5; // 볼륨 설정 (0.0 ~ 1.0)
-bgMusic.play().catch(error => console.log("자동 재생이 차단됨:", error));
 
 let score = 0;
 let target;
@@ -87,10 +86,10 @@ gameContainer.addEventListener("click", (event) => {
     }
 });
 
-// 음악 ON/OFF 버튼 기능 추가
+// 사용자가 버튼을 클릭하면 음악 시작
 musicToggle.addEventListener("click", () => {
     if (bgMusic.paused) {
-        bgMusic.play();
+        bgMusic.play().catch(error => console.log("재생 오류:", error));
         musicToggle.textContent = "🎵 음악 끄기";
     } else {
         bgMusic.pause();
