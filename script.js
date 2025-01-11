@@ -28,8 +28,8 @@ function spawnTarget(isBossTarget = false) {
 
 function moveTarget(element) {
     function animateMovement() {
-        let newX = parseInt(element.style.left) + (Math.random() * 200 - 100);
-        let newY = parseInt(element.style.top) + (Math.random() * 200 - 100);
+        let newX = parseInt(element.style.left) + (Math.random() * 400 - 200);
+        let newY = parseInt(element.style.top) + (Math.random() * 400 - 200);
 
         newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
         newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
