@@ -13,15 +13,16 @@ body {
 
 .target {
     position: absolute;
-    width: 300px;
-    height: 380px;
-    background: url('./assets/images/target.png') no-repeat center center/contain;
+    width: 10vw;  /* 화면 너비의 10% */
+    height: 12.5vh; /* 화면 높이의 12.5% */
+    background: url('assets/images/target.png') no-repeat center center/contain;
 }
 
 .boss {
-    width: 300px;
-    height: 490px;
-    background: url('./assets/images/boss.png') no-repeat center center/contain;
+    position: absolute;
+    width: 15vw;  /* 화면 너비의 15% */
+    height: 20vh; /* 화면 높이의 20% */
+    background: url('assets/images/boss.png') no-repeat center center/contain;
 }
 
 #scoreboard {
